@@ -2,7 +2,6 @@ import React, {
     useState,
     useContext,
     createContext,
-    useEffect
 } from 'react'
 import axios from 'axios'
 
@@ -18,9 +17,9 @@ const WeatherContext = createContext({
 export const WeatherContextProvider = (props) => {
     const [curWeather, setCurWeather] = useState([])
 
-    useEffect(() =>{
-        const fetchData = async () =>{
+        const curWeatherHandeler = async () =>{
             try {
+                let curApiURL = apiURL + 'zip=' + process.env.API_KEY
                 const apiRes = await axios.get(apiURL)
                 
                 //if this doesn't work check axios needs
@@ -32,13 +31,11 @@ export const WeatherContextProvider = (props) => {
 
             } catch(error){console.log(error)}
         }
-        fetchData('curWeather')
-    }, [])
+        curWeatherHandeler('curWeather')
 
     const [dailyWeather, setDailyWeather] = useState([])
 
-    useEffect(() =>{
-        const fetchData = async () =>{
+        const dailyWeatherHandler = async () =>{
             try {
                 const apiRes = await axios.get(apiURL)
                 
@@ -51,8 +48,7 @@ export const WeatherContextProvider = (props) => {
 
             } catch(error){console.log(error)}
         }
-        fetchData('dailyWeather')
-    }, [])
+        dailyWeatherHandler('dailyWeather')
 
     console.log(`This is the curWeather: ${curWeather}`)
     console.log(curWeather)
@@ -61,7 +57,7 @@ export const WeatherContextProvider = (props) => {
     console.log(dailyWeather)
 
     return (
-        <WeatherContext.Provider value={{ curWeather, dailyWeather }}>
+        <WeatherContext.Provider value={{ curWeather: curWeatherHandeler, dailyWeather: dailyWeatherHandler }}>
         {props.children}
         </WeatherContext.Provider>
     )

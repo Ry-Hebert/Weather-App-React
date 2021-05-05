@@ -1,15 +1,17 @@
 import React from 'react'
-import { WeatherContextProvider } from './context/WeatherContext'
+import ZipSearch from './components/ZipSearch'
+// import { WeatherContextProvider } from './context/WeatherContext'
 
 function App() {
   return (
-    <WeatherContextProvider>
+    // <WeatherContextProvider>
       <div className="App">
         <header className="App-header">
-          
+          <h1>Weather App</h1>
+          <ZipSearch/>
         </header>
       </div>
-    </WeatherContextProvider>
+    // </WeatherContextProvider>
   )
 }
 
